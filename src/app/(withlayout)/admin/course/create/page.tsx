@@ -1,5 +1,4 @@
 "use client";
-
 import Form from "@/components/Forms/Form";
 import FormInput from "@/components/Forms/Forminput";
 import FormMultiSelectField from "@/components/Forms/FormMultiSelectField";
@@ -12,8 +11,9 @@ import { useRouter } from "next/navigation";
 
 const CreateCoursePage = () => {
   
-  const router= useRouter()
+
   const [addCourse] = useAddCourseMutation();
+  const router = useRouter()
 
   const { data, isLoading } = useCoursesQuery({ limit: 10, page: 1 });
 
@@ -36,16 +36,15 @@ const CreateCoursePage = () => {
       }
     );
 
-   // console.log("🚀 ~ file: page.tsx:35 ~ onSubmit ~ coursePreRequisitesOptions:", coursePreRequisitesOptions)
+    
+    // console.log("🚀 ~ file: page.tsx:35 ~ onSubmit ~ coursePreRequisitesOptions:", coursePreRequisitesOptions)
     // console.log(data,"coursedata");
 
-    // data.coursePreRequisites = coursePreRequisitesOptions;
-    data.preRequisiteCourses = coursePreRequisitesOptions;
-    delete data.coursePreRequisites;
-
+    data.coursePreRequisites = coursePreRequisitesOptions;
 
     message.loading("Creating.....");
     try {
+      console.log(data);
       const res = await addCourse(data).unwrap();
       
       if (res?.id) {
